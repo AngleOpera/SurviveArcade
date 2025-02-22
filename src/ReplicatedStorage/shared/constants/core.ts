@@ -8,8 +8,8 @@ export const IS_CANARY = $NODE_ENV === 'canary'
 export const IS_STUDIO = RunService.IsStudio()
 export const IS_EDIT = IS_STUDIO && !RunService.IsRunning()
 
-export const START_PLACE_ID = IS_PROD ? -1 : 15699266223
-export const HUMAN_PLACE_ID = IS_PROD ? -1 : 16860946152
+export const START_PLACE_ID = IS_PROD ? -1 : 72252931528624
+export const HUMAN_PLACE_ID = IS_PROD ? -1 : 71051054279488
 export const OMNIVERSE_PLACE_ID = IS_PROD ? -1 : -1
 export const JOB_ID = tonumber(getLastItem(game.JobId.split('-')) || '0') ?? 0
 

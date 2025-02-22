@@ -1,5 +1,5 @@
 {
-  "name": "SurviveArcade",
+  "name": "SurviveArcadeHuman",
   "tree": {
     "$className": "DataModel",
     "HttpService": {
