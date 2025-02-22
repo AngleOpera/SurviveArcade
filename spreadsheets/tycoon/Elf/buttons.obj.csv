@@ -1,0 +1,29 @@
+Name,Cost,Currency,Description,Dependencies
+HousePorch,20,Tickets,Porch,
+HouseFloor1Floor,30,Tickets,Popsicle Stick Floor,HousePorch
+HouseFloor1WallBack,40,Tickets,Popcorn Box Wall,HouseFloor1Floor
+HouseFloor1WallFrontLeft,50,Tickets,Popcorn Box Wall,HouseFloor1Floor
+HouseFloor1WallFrontRight,60,Tickets,Popcorn Box Wall,HouseFloor1Floor
+HouseFloor1WallLeft,70,Tickets,Popcorn Box Wall,HouseFloor1Floor
+HouseFloor1WallRight,80,Tickets,Popcorn Box Wall,HouseFloor1Floor
+HouseFloor1WindowFrontLeft,90,Tickets,Foil Window,"HouseFloor1WallBack,HouseFloor1WallFrontLeft,HouseFloor1WallFrontRight,HouseFloor1WallLeft,HouseFloor1WallRight"
+HouseFloor1WindowFrontRight,90,Tickets,Foil Window,"HouseFloor1WallBack,HouseFloor1WallFrontLeft,HouseFloor1WallFrontRight,HouseFloor1WallLeft,HouseFloor1WallRight"
+HouseFloor1WindowLeft,90,Tickets,Foil Window,"HouseFloor1WallBack,HouseFloor1WallFrontLeft,HouseFloor1WallFrontRight,HouseFloor1WallLeft,HouseFloor1WallRight"
+HouseFloor1WindowRight,90,Tickets,Foil Window,"HouseFloor1WallBack,HouseFloor1WallFrontLeft,HouseFloor1WallFrontRight,HouseFloor1WallLeft,HouseFloor1WallRight"
+HouseFloor1Door,120,Tickets,Foil Doorframe,"HouseFloor1WindowFrontLeft,HouseFloor1WindowFrontRight,HouseFloor1WindowRight,HouseFloor1WindowFrontLeft"
+HouseOwnerDoor,200,Tickets,Owner Door,HouseFloor1Door
+VehicleSpawner,4000,Tickets,Vehicle Spawner,HouseOwnerDoor
+SaberGiver,1000,Tickets,Light Saber,HouseOwnerDoor
+ArcadeGunGiver,2000,Tickets,Arcade Gun,HouseOwnerDoor
+BlocksGiver,2000,Tickets,Blocks,HouseOwnerDoor
+HouseFloor1Communicator,1000,Tickets,Communicator,HouseOwnerDoor
+HouseFloor1Portal,1,Levity,Human Portal,HouseOwnerDoor
+HouseLights,200,Tickets,House Lights,HouseOwnerDoor
+HouseFloor2Floor,400,Tickets,Second Floor,HouseOwnerDoor
+HouseFloor1Stairs,250,Tickets,Matchbox Stairs,HouseFloor2Floor
+HouseFloor2WallBack,350,Tickets,Popcorn Box Wall,HouseFloor2Floor
+HouseFloor2WallFront,350,Tickets,Popcorn Box Wall,HouseFloor2Floor
+HouseFloor2Roof,350,Tickets,Popsicle Stick Roof,"HouseFloor2WallBack,HouseFloor2WallFront"
+HouseStrawSupports,400,Tickets,Straw Supports,HouseFloor2Roof
+HouseAwning,400,Tickets,Awning,HouseStrawSupports
+HouseStringLights,500,Tickets,String Lights,HouseAwning

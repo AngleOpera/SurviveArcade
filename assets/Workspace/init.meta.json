@@ -1,0 +1,30 @@
+{
+  "className": "Workspace",
+  "properties": {
+    "PlayerCharacterDestroyBehavior": {
+      "Enum": 0
+    },
+    "PrimalPhysicsSolver": {
+      "Enum": 0
+    },
+    "EditorLiveScripting": {
+      "Enum": 0
+    },
+    "CollisionGroupData": {
+      "BinaryString": "AQgABOv///8HRGVmYXVsdAEE5////wRCYWxsAgTi////BFdhbGwDBOH///8HQmFycmllcgQE4P///w1ab21iaWVCYXJyaWVyBQR/////BlpvbWJpZQYE/////xBTdHVkaW9TZWxlY3RhYmxlBwRf////ClpvbWJpZUxhdmE="
+    },
+    "TouchesUseCollisionGroups": true,
+    "CSGAsyncDynamicCollision": {
+      "Enum": 0
+    },
+    "DecreaseMinimumPartDensityMode": {
+      "Enum": 0
+    },
+    "CurrentCamera": {
+      "Ref": "932d9576f7fd217ac22e81c143b213fd"
+    },
+    "RenderingCacheOptimizations": {
+      "Enum": 0
+    }
+  }
+}

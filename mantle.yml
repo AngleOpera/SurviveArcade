@@ -1,0 +1,49 @@
+environments:
+  - label: beta
+    targetNamePrefix: environmentLabel
+    targetAccess: public
+    targetOverrides:
+      icon: assets/marketing/game_icon_beta.jpg
+      thumbnails: [assets/marketing/game_thumbnail_beta.jpg]
+      places:
+        start:
+          configuration:
+            name: Survive Arcade DEV 🚧
+            description: |
+              This is a development build of Survive Arcade. Your feedback is appreciated ❤️
+
+              🚧  Proceed with caution: You may encounter bugs, data resets, and instability.
+              🔥  Take a look at upcoming features before they're shipped to production.
+            maxPlayerCount: 8
+  - label: production
+    branches: [main]
+    targetAccess: public
+
+target:
+  experience:
+    icon: assets/marketing/game_icon.jpg
+    thumbnails: [assets/marketing/game_thumbnail.jpg]
+    configuration:
+      playableDevices: [computer, console, phone, tablet]
+      privateServers:
+        price: 10
+      enableStudioAccessToApis: true
+      avatarType: playerChoice
+      avatarAnimationType: playerChoice
+    spatialVoice:
+      enabled: true
+    places:
+      start:
+        file: SurviveArcade.rbxl
+        configuration:
+          name: Survive Arcade 🎮
+          description: |
+            Get the high score.  But beware of the rats!
+          maxPlayerCount: 8
+      human:
+        file: SurviveArcade.rbxl
+        configuration:
+          name: Survive Arcade 🎮
+          description: |
+            Get the high score.  But beware of the humans!
+          maxPlayerCount: 8

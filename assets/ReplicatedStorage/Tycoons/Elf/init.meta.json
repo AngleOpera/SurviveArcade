@@ -1,0 +1,37 @@
+{
+  "className": "Model",
+  "properties": {
+    "WorldPivotData": {
+      "OptionalCFrame": {
+        "position": [
+          -459.76874,
+          57.84505,
+          -60.458565
+        ],
+        "orientation": [
+          [
+            1.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0
+          ]
+        ]
+      }
+    },
+    "Tags": [
+      "Tycoon"
+    ]
+  },
+  "attributes": {
+    "TycoonType": "Elf"
+  }
+}

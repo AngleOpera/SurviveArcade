@@ -1,0 +1,34 @@
+{
+  "className": "Model",
+  "properties": {
+    "WorldPivotData": {
+      "OptionalCFrame": {
+        "position": [
+          209.54236,
+          56.859383,
+          131.26396
+        ],
+        "orientation": [
+          [
+            0.0,
+            0.0,
+            -1.0
+          ],
+          [
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            1.0,
+            0.0,
+            0.0
+          ]
+        ]
+      }
+    },
+    "Tags": [
+      "ArcadeTable"
+    ]
+  }
+}
