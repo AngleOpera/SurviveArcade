@@ -4,7 +4,10 @@ import {
   ServerNetworkEvents,
 } from 'ReplicatedStorage/shared/network'
 import { ArcadeTableState } from 'ReplicatedStorage/shared/state/ArcadeTablesState'
-import { type ArcadeTableMechanics } from 'ReplicatedStorage/shared/tables/mechanics'
+import {
+  ArcadeControllerInterface,
+  type ArcadeTableMechanics,
+} from 'ReplicatedStorage/shared/tables/mechanics'
 import {
   BehaviorObject,
   getBehaviorTime,
@@ -22,6 +25,8 @@ const scoreboardCharacters = 14
 export class PinballMechanics implements ArcadeTableMechanics {
   ballNumber = 1
   fullForceKeypress = 0
+
+  onSetupTable(_arcadeTable: ArcadeTable, _state: ArcadeTableState) {}
 
   onCreateTablePart(
     _arcadeTable: ArcadeTable,
@@ -79,17 +84,14 @@ export class PinballMechanics implements ArcadeTableMechanics {
     }
   }
 
-  onGameOver(tableName: ArcadeTableName, userId: number) {
+  onGameOver(tableName: ArcadeTableName, _userId: number) {
     const arcadeTable = game.Workspace.ArcadeTables.FindFirstChild(tableName)
     const flipperLeft = arcadeTable?.FindFirstChild<Flipper>('FlipperLeft')
     const flipperRight = arcadeTable?.FindFirstChild<Flipper>('FlipperRight')
     const spinnerLeft = arcadeTable?.FindFirstChild<Spinner>('SpinnerLeft')
-    if (!userId) {
-      if (flipperLeft) setNetworkOwner(flipperLeft, undefined)
-      if (flipperRight) setNetworkOwner(flipperRight, undefined)
-      if (spinnerLeft) setNetworkOwner(spinnerLeft, undefined)
-      return
-    }
+    if (flipperLeft) setNetworkOwner(flipperLeft, undefined)
+    if (flipperRight) setNetworkOwner(flipperRight, undefined)
+    if (spinnerLeft) setNetworkOwner(spinnerLeft, undefined)
   }
 
   onScoreChanged(
@@ -108,7 +110,7 @@ export class PinballMechanics implements ArcadeTableMechanics {
 
   onClientInputBegan(
     tableName: ArcadeTableName,
-    _userId: number,
+    _controllerObject: ArcadeControllerInterface,
     network: ClientNetworkEvents,
     input: InputObject,
     inputService?: UserInputService,
@@ -147,7 +149,7 @@ export class PinballMechanics implements ArcadeTableMechanics {
 
   onClientInputEnded(
     _tableName: ArcadeTableName,
-    _userId: number,
+    _controllerObject: ArcadeControllerInterface,
     _network: ClientNetworkEvents,
     _input: InputObject,
     _inputService?: UserInputService,

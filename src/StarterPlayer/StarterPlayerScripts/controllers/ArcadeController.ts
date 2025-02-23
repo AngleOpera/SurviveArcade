@@ -10,7 +10,10 @@ import {
   selectLocalPlayerLoops,
 } from 'ReplicatedStorage/shared/state'
 import { ArcadeTableStatus } from 'ReplicatedStorage/shared/state/ArcadeTablesState'
-import { mechanics } from 'ReplicatedStorage/shared/tables/mechanics'
+import {
+  ArcadeControllerInterface,
+  mechanics,
+} from 'ReplicatedStorage/shared/tables/mechanics'
 import { findDescendentWithPath } from 'ReplicatedStorage/shared/utils/instance'
 import { formatMessage, MESSAGE } from 'ReplicatedStorage/shared/utils/messages'
 import { randomElement } from 'ReplicatedStorage/shared/utils/object'
@@ -19,8 +22,12 @@ import { Events } from 'StarterPlayer/StarterPlayerScripts/network'
 import { store } from 'StarterPlayer/StarterPlayerScripts/store'
 
 @Controller({})
-export class ArcadeController implements OnStart {
-  myArcadeTableName: ArcadeTableName | undefined
+export class ArcadeController implements ArcadeControllerInterface, OnStart {
+  myArcadeTableName: ArcadeTableName | undefined = undefined
+  leftDown: boolean = false
+  rightDown: boolean = false
+  forwardDown: boolean = false
+  backwardDown: boolean = false
 
   onStart() {
     const player = Players.LocalPlayer
@@ -42,7 +49,7 @@ export class ArcadeController implements OnStart {
       const tableType = store.getState(selectArcadeTableType(tableName))
       mechanics[tableType].onClientInputBegan(
         tableName,
-        player.UserId,
+        this,
         Events,
         input,
         UserInputService,
@@ -56,7 +63,7 @@ export class ArcadeController implements OnStart {
       const tableType = store.getState(selectArcadeTableType(tableName))
       mechanics[tableType].onClientInputEnded(
         tableName,
-        player.UserId,
+        this,
         Events,
         input,
         UserInputService,

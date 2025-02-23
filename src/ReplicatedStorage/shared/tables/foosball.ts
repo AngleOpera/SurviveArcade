@@ -3,11 +3,16 @@ import {
   ServerNetworkEvents,
 } from 'ReplicatedStorage/shared/network'
 import { ArcadeTableState } from 'ReplicatedStorage/shared/state/ArcadeTablesState'
-import type { ArcadeTableMechanics } from 'ReplicatedStorage/shared/tables/mechanics'
+import type {
+  ArcadeControllerInterface,
+  ArcadeTableMechanics,
+} from 'ReplicatedStorage/shared/tables/mechanics'
 import { BehaviorObject } from 'ReplicatedStorage/shared/utils/behavior'
 
 export class FoosballMechanics implements ArcadeTableMechanics {
   puckNumber = 1
+
+  onSetupTable(_arcadeTable: ArcadeTable, _state: ArcadeTableState) {}
 
   onCreateTablePart(
     _arcadeTable: ArcadeTable,
@@ -34,7 +39,7 @@ export class FoosballMechanics implements ArcadeTableMechanics {
 
   onClientInputBegan(
     _tableName: ArcadeTableName,
-    _userId: number,
+    _controllerState: ArcadeControllerInterface,
     _network: ClientNetworkEvents,
     _input: InputObject,
     _inputService?: UserInputService,
@@ -42,7 +47,7 @@ export class FoosballMechanics implements ArcadeTableMechanics {
 
   onClientInputEnded(
     _tableName: ArcadeTableName,
-    _userId: number,
+    _controllerState: ArcadeControllerInterface,
     _network: ClientNetworkEvents,
     _input: InputObject,
     _inputService?: UserInputService,

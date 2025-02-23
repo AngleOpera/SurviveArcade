@@ -12,6 +12,7 @@
     "enable-dev": "cp project/dev.project.json default.project.json",
     "enable-human": "cp project/human.project.json default.project.json",
     "lint": "yarn eslint src && yarn prettier --check src",
+    "start": "open SurviveArcade.rbxl",
     "sync": "yarn enable-dev && rojo serve",
     "syncback-elf": "yarn enable-elf && rojo syncback --input ./SurviveArcade.rbxl 2>&1 | tee syncback.log",
     "syncback-human": "yarn enable-human && rojo syncback --input ./SurviveArcadeHuman.rbxl 2>&1 | tee syncback.log",

@@ -141,9 +141,9 @@ export class MapService implements OnStart {
     cframe?: CFrame,
     restoreMaterial?: boolean,
   ) {
-    const parts = findDescendentsWhichAre(arcadeTable, 'BasePart') as BasePart[]
     const arcadeTableMechanics = mechanics[state.tableType]
     const groundTable = state.sequence % 8 === 0
+    const parts = findDescendentsWhichAre(arcadeTable, 'BasePart') as BasePart[]
     for (const part of parts) {
       arcadeTableMechanics.onCreateTablePart(arcadeTable, state, part)
       if (endsWith(part.Name, 'Template')) continue
@@ -169,6 +169,7 @@ export class MapService implements OnStart {
     }
     if (cframe) arcadeTable.PivotTo(cframe)
     arcadeTable.Parent = Workspace.ArcadeTables
+    arcadeTableMechanics.onSetupTable(arcadeTable, state)
   }
 
   setupNextArcadeTable(

@@ -8,7 +8,17 @@ import { FoosballMechanics } from 'ReplicatedStorage/shared/tables/foosball'
 import { PinballMechanics } from 'ReplicatedStorage/shared/tables/pinball'
 import { BehaviorObject } from 'ReplicatedStorage/shared/utils/behavior'
 
+export interface ArcadeControllerInterface {
+  myArcadeTableName: ArcadeTableName | undefined
+  leftDown: boolean
+  rightDown: boolean
+  forwardDown: boolean
+  backwardDown: boolean
+}
+
 export interface ArcadeTableMechanics {
+  onSetupTable(arcadeTable: ArcadeTable, state: ArcadeTableState): void
+
   onCreateTablePart(
     arcadeTable: ArcadeTable,
     state: ArcadeTableState,
@@ -30,7 +40,7 @@ export interface ArcadeTableMechanics {
 
   onClientInputBegan(
     tableName: ArcadeTableName,
-    userId: number,
+    controller: ArcadeControllerInterface,
     network: ClientNetworkEvents,
     input: InputObject,
     inputService?: UserInputService,
@@ -38,7 +48,7 @@ export interface ArcadeTableMechanics {
 
   onClientInputEnded(
     tableName: ArcadeTableName,
-    userId: number,
+    controller: ArcadeControllerInterface,
     network: ClientNetworkEvents,
     input: InputObject,
     inputService?: UserInputService,

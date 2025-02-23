@@ -4,7 +4,10 @@ import {
   ServerNetworkEvents,
 } from 'ReplicatedStorage/shared/network'
 import { ArcadeTableState } from 'ReplicatedStorage/shared/state/ArcadeTablesState'
-import { type ArcadeTableMechanics } from 'ReplicatedStorage/shared/tables/mechanics'
+import {
+  ArcadeControllerInterface,
+  type ArcadeTableMechanics,
+} from 'ReplicatedStorage/shared/tables/mechanics'
 import { updateScoreboard } from 'ReplicatedStorage/shared/utils/arcade'
 import { BehaviorObject } from 'ReplicatedStorage/shared/utils/behavior'
 import {
@@ -13,11 +16,15 @@ import {
   weldAssemblage,
 } from 'ReplicatedStorage/shared/utils/instance'
 
-const scoreboardCharacters = 13
+const scoreboardCharacters = 14
 
 export class AirHockeyMechanics implements ArcadeTableMechanics {
   puckNumber = 1
   pusherSpeed = 35
+
+  onSetupTable(arcadeTable: ArcadeTable, state: ArcadeTableState) {
+    this.updateScoreboard(arcadeTable.Name, state)
+  }
 
   onCreateTablePart(
     _arcadeTable: ArcadeTable,
@@ -64,16 +71,13 @@ export class AirHockeyMechanics implements ArcadeTableMechanics {
     this.resetPuck(tableName, arcadeTable, player, network)
   }
 
-  onGameOver(tableName: ArcadeTableName, userId: number) {
+  onGameOver(tableName: ArcadeTableName, _userId: number) {
     const arcadeTable =
       game.Workspace.ArcadeTables.FindFirstChild<AirHockeyTable>(tableName)
     const control = arcadeTable?.FindFirstChild('Control')
-    if (!userId) {
-      if (control) {
-        setNetworkOwner(control, undefined)
-        updateBodyVelocity(control)
-      }
-      return
+    if (control) {
+      setNetworkOwner(control, undefined)
+      updateBodyVelocity(control)
     }
   }
 
@@ -86,7 +90,7 @@ export class AirHockeyMechanics implements ArcadeTableMechanics {
 
   onClientInputBegan(
     tableName: ArcadeTableName,
-    _userId: number,
+    controllerState: ArcadeControllerInterface,
     _network: ClientNetworkEvents,
     input: InputObject,
     _inputService?: UserInputService,
@@ -96,23 +100,19 @@ export class AirHockeyMechanics implements ArcadeTableMechanics {
     const control = arcadeTable?.FindFirstChild('Control')
     const seat = control?.FindFirstChild<Seat>('Seat')
     if (!control || !seat) return
-    if (input.UserInputType === Enum.UserInputType.Keyboard) {
-      switch (input.KeyCode) {
-        case Enum.KeyCode.A:
-        case Enum.KeyCode.W:
-        case Enum.KeyCode.S:
-        case Enum.KeyCode.D:
-          this.updateControlVelocity(control, seat.CFrame, input.KeyCode, 1)
-          break
-        default:
-          break
-      }
-    }
+    if (input.UserInputType !== Enum.UserInputType.Keyboard) return
+    this.updatePaddleVelocity(
+      control,
+      controllerState,
+      seat.CFrame,
+      input.KeyCode,
+      true,
+    )
   }
 
   onClientInputEnded(
     tableName: ArcadeTableName,
-    _userId: number,
+    controllerState: ArcadeControllerInterface,
     _network: ClientNetworkEvents,
     input: InputObject,
     _inputService?: UserInputService,
@@ -122,18 +122,14 @@ export class AirHockeyMechanics implements ArcadeTableMechanics {
     const control = arcadeTable?.FindFirstChild('Control')
     const seat = control?.FindFirstChild<Seat>('Seat')
     if (!control || !seat) return
-    if (input.UserInputType === Enum.UserInputType.Keyboard) {
-      switch (input.KeyCode) {
-        case Enum.KeyCode.A:
-        case Enum.KeyCode.W:
-        case Enum.KeyCode.S:
-        case Enum.KeyCode.D:
-          this.updateControlVelocity(control, seat.CFrame, input.KeyCode, -1)
-          break
-        default:
-          break
-      }
-    }
+    if (input.UserInputType !== Enum.UserInputType.Keyboard) return
+    this.updatePaddleVelocity(
+      control,
+      controllerState,
+      seat.CFrame,
+      input.KeyCode,
+      false,
+    )
   }
 
   onClientNewPiece(
@@ -183,37 +179,44 @@ export class AirHockeyMechanics implements ArcadeTableMechanics {
     if (!airhockeyTable) return
   }
 
-  updateControlVelocity(
+  updatePaddleVelocity(
     control: Instance,
+    controllerState: ArcadeControllerInterface,
     frame: CFrame,
     keyCode: Enum.KeyCode,
-    scale: number,
+    down: boolean,
   ) {
-    if (keyCode === Enum.KeyCode.A) {
-      updateBodyVelocity(
-        control,
-        frame.RightVector.mul(-this.pusherSpeed * scale),
-        true,
-      )
-    } else if (keyCode === Enum.KeyCode.D) {
-      updateBodyVelocity(
-        control,
-        frame.RightVector.mul(this.pusherSpeed * scale),
-        true,
-      )
-    } else if (keyCode === Enum.KeyCode.W) {
-      updateBodyVelocity(
-        control,
-        frame.LookVector.mul(this.pusherSpeed * scale),
-        true,
-      )
-    } else if (keyCode === Enum.KeyCode.S) {
-      updateBodyVelocity(
-        control,
-        frame.LookVector.mul(-this.pusherSpeed * scale),
-        true,
-      )
+    if (!controllerState.myArcadeTableName) return
+    switch (keyCode) {
+      case Enum.KeyCode.A:
+        controllerState.leftDown = down
+        break
+      case Enum.KeyCode.D:
+        controllerState.rightDown = down
+        break
+      case Enum.KeyCode.W:
+        controllerState.forwardDown = down
+        break
+      case Enum.KeyCode.S:
+        controllerState.backwardDown = down
+        break
+      default:
+        return
     }
+    let velocity = new Vector3(0, 0, 0)
+    if (controllerState.leftDown) {
+      velocity = velocity.add(frame.RightVector.mul(-this.pusherSpeed))
+    }
+    if (controllerState.rightDown) {
+      velocity = velocity.add(frame.RightVector.mul(this.pusherSpeed))
+    }
+    if (controllerState.forwardDown) {
+      velocity = velocity.add(frame.LookVector.mul(this.pusherSpeed))
+    }
+    if (controllerState.backwardDown) {
+      velocity = velocity.add(frame.LookVector.mul(-this.pusherSpeed))
+    }
+    updateBodyVelocity(control, velocity, { requireAlreadyExists: !down })
   }
 
   updateScoreboard(
@@ -222,7 +225,7 @@ export class AirHockeyMechanics implements ArcadeTableMechanics {
   ) {
     updateScoreboard(
       tableName,
-      `HOME ${arcadeTableState.goalsHome} AWAY ${arcadeTableState.goalsAway}`,
+      `HOME ${arcadeTableState.goalsHome}  AWAY ${arcadeTableState.goalsAway}`,
       scoreboardCharacters,
     )
   }
