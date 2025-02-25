@@ -61,6 +61,17 @@ export function getArcadeTableFromDescendent(instance: Instance) {
   return undefined
 }
 
+export function getArcadeTableDescendentPath(instance: Instance) {
+  const path = []
+  while (instance) {
+    if (CollectionService.HasTag(instance, ArcadeTableTag)) return path
+    if (!instance.Parent) break
+    path.unshift(instance.Name)
+    instance = instance.Parent
+  }
+  return []
+}
+
 export function getArcadeTableSpawn(arcadeTable?: ArcadeTable) {
   return arcadeTable?.Control?.Seat?.CFrame?.ToWorldSpace(
     new CFrame(new Vector3(0, 5, 3)),

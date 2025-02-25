@@ -81,6 +81,8 @@ export class AirHockeyMechanics implements ArcadeTableMechanics {
     }
   }
 
+  onEvent(_arcadeTable: ArcadeTable, _eventName: string, _part?: BasePart) {}
+
   onScoreChanged(
     tableName: ArcadeTableName,
     arcadeTableState: ArcadeTableState,

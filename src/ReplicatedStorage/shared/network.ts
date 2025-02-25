@@ -8,6 +8,7 @@ import { BroadcastAction } from '@rbxts/reflex'
 interface ServerEvents {
   arcadeTableEvent: (
     tableName: string,
+    eventName: string,
     partPath: string[],
     soundName?: string,
   ) => void

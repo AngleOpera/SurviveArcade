@@ -32,6 +32,8 @@ export class FoosballMechanics implements ArcadeTableMechanics {
 
   onGameOver(_tableName: ArcadeTableName, _userId: number) {}
 
+  onEvent(_arcadeTable: ArcadeTable, _eventName: string, _part?: BasePart) {}
+
   onScoreChanged(
     _tableName: ArcadeTableName,
     _arcadeTableState: ArcadeTableState,

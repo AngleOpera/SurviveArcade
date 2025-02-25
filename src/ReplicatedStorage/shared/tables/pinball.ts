@@ -94,6 +94,8 @@ export class PinballMechanics implements ArcadeTableMechanics {
     if (spinnerLeft) setNetworkOwner(spinnerLeft, undefined)
   }
 
+  onEvent(_arcadeTable: ArcadeTable, _eventName: string, _part?: BasePart) {}
+
   onScoreChanged(
     tableName: ArcadeTableName,
     arcadeTableState: ArcadeTableState,
@@ -139,6 +141,7 @@ export class PinballMechanics implements ArcadeTableMechanics {
           flipPinballFlipper(arcadeTable, flipperName, force)
           network.arcadeTableEvent.fire(
             tableName,
+            'Flipper',
             [flipperName],
             'FlipperSound',
           )

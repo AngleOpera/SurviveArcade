@@ -84,7 +84,7 @@
         <bool name="CanTouch">true</bool>
         <SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
         <bool name="CastShadow">true</bool>
-        <string name="CollisionGroup">Default</string>
+        <string name="CollisionGroup">Paddle</string>
         <int name="CollisionGroupId">0</int>
         <Color3uint8 name="Color3uint8">16711680</Color3uint8>
         <PhysicalProperties name="CustomPhysicalProperties">
@@ -185,7 +185,7 @@
         <bool name="CanTouch">true</bool>
         <SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
         <bool name="CastShadow">true</bool>
-        <string name="CollisionGroup">Default</string>
+        <string name="CollisionGroup">Paddle</string>
         <int name="CollisionGroupId">0</int>
         <Color3uint8 name="Color3uint8">16711680</Color3uint8>
         <PhysicalProperties name="CustomPhysicalProperties">
@@ -286,7 +286,7 @@
         <bool name="CanTouch">true</bool>
         <SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
         <bool name="CastShadow">true</bool>
-        <string name="CollisionGroup">Default</string>
+        <string name="CollisionGroup">Paddle</string>
         <int name="CollisionGroupId">0</int>
         <Color3uint8 name="Color3uint8">307180</Color3uint8>
         <PhysicalProperties name="CustomPhysicalProperties">
@@ -415,7 +415,7 @@
         <bool name="CanTouch">true</bool>
         <SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
         <bool name="CastShadow">true</bool>
-        <string name="CollisionGroup">Default</string>
+        <string name="CollisionGroup">Paddle</string>
         <int name="CollisionGroupId">0</int>
         <Color3uint8 name="Color3uint8">16711680</Color3uint8>
         <PhysicalProperties name="CustomPhysicalProperties">
@@ -523,7 +523,7 @@
         <BinaryString name="ChildData">
         </BinaryString>
         <SharedString name="ChildData2">rxNJufX5oaagQE3qNtzJSQ==</SharedString>
-        <string name="CollisionGroup">Default</string>
+        <string name="CollisionGroup">Paddle</string>
         <int name="CollisionGroupId">0</int>
         <Color3uint8 name="Color3uint8">16711680</Color3uint8>
         <PhysicalProperties name="CustomPhysicalProperties">

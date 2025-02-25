@@ -114,8 +114,9 @@ export class ArcadeTableService implements OnStart {
   }
 
   startArcadeTablesControlEventHandler() {
-    Events.arcadeTableEvent.connect((_player, tableName, partPath, soundName) =>
-      this.onTableEvent(tableName, partPath, soundName),
+    Events.arcadeTableEvent.connect(
+      (_player, tableName, eventName, partPath, soundName) =>
+        this.onTableEvent(tableName, eventName, partPath, soundName),
     )
   }
 
@@ -177,8 +178,15 @@ export class ArcadeTableService implements OnStart {
     this.onGameOver(tableName, userId, previousTableState.score)
   }
 
-  onTableEvent(tableName: string, partPath: string[], soundName?: string) {
-    const arcadeTable = game.Workspace.ArcadeTables.FindFirstChild(tableName)
+  onTableEvent(
+    tableName: string,
+    eventName: string,
+    partPath: string[],
+    soundName?: string,
+  ) {
+    const arcadeTable =
+      game.Workspace.ArcadeTables.FindFirstChild<ArcadeTable>(tableName)
+    if (!arcadeTable) return
     const part = findDescendentWithPath(arcadeTable, partPath)
     if (part && soundName) {
       const sound = findDescendentWithPath<Sound>(arcadeTable, [
@@ -187,6 +195,8 @@ export class ArcadeTableService implements OnStart {
       ])
       if (sound) playSoundId(part, sound.SoundId)
     }
+    const tableType = store.getState(selectArcadeTableType(arcadeTable.Name))
+    mechanics[tableType].onEvent(arcadeTable, eventName, part)
   }
 
   onGameWon(tableName: ArcadeTableName, arcadeTableState: ArcadeTableState) {

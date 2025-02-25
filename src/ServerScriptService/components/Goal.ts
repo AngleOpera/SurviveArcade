@@ -23,10 +23,14 @@ export class GoalComponent
     if (!arcadeTable) throw error('Goal has no ancestor ArcadeTable')
     this.instance.Touched?.Connect((hit) => {
       if (
-        CollectionService.HasTag(hit, BallTag) ||
-        CollectionService.HasTag(hit, PuckTag)
+        CollectionService.HasTag(hit, PuckTag) ||
+        (hit.Parent && CollectionService.HasTag(hit.Parent, PuckTag))
       ) {
-        this.handleGoal(arcadeTable, hit, this.attributes.Team)
+        this.handleGoal(
+          arcadeTable,
+          hit,
+          this.attributes.Team === 'Home' ? 'Away' : 'Home',
+        )
       }
     })
   }
@@ -49,7 +53,7 @@ export class GoalComponent
       obj,
     )*/
 
-    task.wait(0.1)
+    task.wait(0.5)
 
     part.Destroy()
     this.instance.Material = material

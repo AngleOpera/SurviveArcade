@@ -33,6 +33,8 @@ export interface ArcadeTableMechanics {
 
   onGameOver(tableName: ArcadeTableName, userId: number): void
 
+  onEvent(arcadeTable: ArcadeTable, eventName: string, part?: Instance): void
+
   onScoreChanged(
     tableName: ArcadeTableName,
     arcadeTableState: ArcadeTableState,
